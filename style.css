@@ -1,0 +1,13 @@
+.inactive {
+    visibility: hidden;
+}
+
+.thick{
+    font-weight: bold;
+}
+
+
+li {
+    list-style: none;
+}
+
