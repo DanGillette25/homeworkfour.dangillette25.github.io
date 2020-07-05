@@ -1,3 +1,5 @@
+//Array to store the questions
+
 var questions = [
     {
         title: 'HTML stands for:',

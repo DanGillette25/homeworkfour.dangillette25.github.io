@@ -1,6 +1,8 @@
 $(document).ready(function(){
 
-    $("#description").text("Answer the multiple choice questions below to test your coding knowledge.");
+    $("#scores").text("hello?");
+
+    $("#description").text("Answer the multiple choice questions below to test your coding knowledge.  You will have 60 seconds to complete the quiz.  Wrong answers will result in a 10 second time penalty.  Your final score will be calculated by multiplying the number of seconds you have left by the number of questions you answered correctly.");
 
     // questionNum determines what question will be asked
     var questionNum = 0;
@@ -14,9 +16,40 @@ $(document).ready(function(){
 
     var rightAnswers = 0;
 
-    // Create an empty object that we will store scores in
+    // Display Score Button and event listener
+   
+        $("#display-scores").on("click", function highScores(){
 
-    
+        $("#take-quiz").removeClass("inactive");
+        $("#quiz-and-scoreboard-buttons").addClass("inactive");
+        $("#description").text("These are the top five scores");
+
+        // Grab our score array from localStorage, parse it back into an array/object
+            // and sort that array based on which score is highest
+            var scoreDisplay = JSON.parse(localStorage.getItem('scoreBoard'));
+            scoreDisplay.sort((a,b) => (a.Score > b.Score) ? -1 : 1)
+            
+            var newULthree = $("<ul>")
+            $("#take-quiz").append(newULthree);
+
+            // This for loop is for displaying the top five scores
+            for (var i = 0; i < 5; i++) {
+                var scoreToInteger = scoreDisplay[i].Score;
+                var newLI = $("<li>")
+                newLI.text(i + 1 + ". " + scoreDisplay[i].Initials + " " + scoreToInteger + " points");
+                newULthree.append(newLI);
+            }
+
+
+            var refreshBtn = $("<button>");
+            refreshBtn.text("Back to Start");
+            newULthree.append(refreshBtn);
+
+            $(refreshBtn).on("click", function() {
+                location.reload();
+            })
+        
+        });
 
     // When the "start quiz" button is clicked, we start the timer and 
     // define & execute the startQuiz function
@@ -30,7 +63,7 @@ $(document).ready(function(){
         
             var timerInterval = setInterval(function() {
                 secondsLeft--;
-                $("#timer").text(secondsLeft);
+                $("#timer").text("You have " + secondsLeft + " seconds left.");
                 if (secondsLeft < 1) {
                     alert("You're out of time!");
                     secondsLeft = 1;
@@ -48,7 +81,7 @@ $(document).ready(function(){
 
             //Hide the "take quiz" button and make the quiz and timer elements visible
             $("#take-quiz").removeClass("inactive");
-            $("#start-quiz").addClass("inactive");
+            $("#quiz-and-scoreboard-buttons").addClass("inactive");
             $("#timer").removeClass("inactive");
             
             
@@ -151,7 +184,7 @@ $(document).ready(function(){
 
     
 
-    // Define the function to record the score once the quiz is over.
+// Define the function to record the score once the quiz is over.
 // We start by doing away with the quiz content the the timer
 //
 
@@ -160,9 +193,15 @@ $(document).ready(function(){
         $("#description").text("Quiz Complete")
         $("#take-quiz").empty();
         $("#timer").addClass("inactive");
+    // Grab the number of seconds left and set secondsLeft to a string
+    // to prevent the timeout alert from popping up
+    // The score is calculated by multiplying the time left by the number of 
+    //questions answered correctly
         var finalSecondCount = secondsLeft;
         secondsLeft = "potatoe";
         var score = finalSecondCount * rightAnswers;
+
+    // We then display a message with the user's score
 
         var newULtwo = $("<ul>");
         
@@ -171,29 +210,34 @@ $(document).ready(function(){
         var scoreDisplay = $("<li>")
         scoreDisplay.text("You answered "+ rightAnswers + " questions correctly with " + finalSecondCount + " seconds to spare.  Your final score is " + score);
         newULtwo.append(scoreDisplay);
-
+    //Textbox and submit button for user's initials
         initialPrompt = $("<li>");
         initialPrompt.text("Enter Your Initials Here");
         newULtwo.append(initialPrompt);
-
         var initialBox = $('<input type = "text" name="playername">');
         newULtwo.append(initialBox);
-
+    //Submit button
         var submitScore = $('<input type="submit" value="Submit"/>');
         newULtwo.append(submitScore);
 
-        $(submitScore).on("click", function(event) {
+
+    //When the submit button is clicked...
+
+
+    //////////////////////////////////////////////////////////////////
+        $(submitScore).on("click", function displayScores(event) {
             event.preventDefault();
             var storedInitials = document.getElementsByName('playername');
-
+        // We record the initials the user has typed..
             for (i = 0; i < storedInitials.length; i++) {
                 if (storedInitials) {
                     var initialOut = storedInitials[i].value;
                     
                 }
-   
 
+        // And store that plus their score in an object within an array
             var storeScore = [
+            
                 {
                     Initials: initialOut,
                     Score: score,
@@ -201,18 +245,65 @@ $(document).ready(function(){
                 }
             ];
 
+            // Clear the html in "take-quiz" id
+    $("#take-quiz").empty();
 
+    //Turn our score object into a string so that it can be
+    //put into localStorage
+    var scoreString = JSON.stringify(storeScore);    
 
+    // If the scoreboard already exists in LocalStorage
+        if (localStorage.getItem('scoreBoard')){
+        // We grab it from localStorage, parse it back into an object/array,
+        //add the most recent entry, turn it back into a string, and
+        // put it back into localStorage
+           var existingScores = JSON.parse(localStorage.getItem('scoreBoard'));
+           var joinEm = existingScores.concat(storeScore);
+           var scoreBoard = JSON.stringify(joinEm);
+           localStorage.setItem("scoreBoard", scoreBoard);
+        // If it doesn't already exist, we create it in localStorage
+        }else{
 
+            var scoreBoard = scoreString;
 
-        
-
+            localStorage.setItem("scoreBoard", scoreBoard);
             
+        }
+    
+    // Grab our score array from localStorage, parse it back into an array/object
+    // and sort that array based on which score is highest
+    var scoreDisplay = JSON.parse(localStorage.getItem('scoreBoard'));
+    scoreDisplay.sort((a,b) => (a.Score > b.Score) ? -1 : 1)
+
+    $("#description").text("These are the top five scores");
+
+    var newULfour = $("<ul>")
+    $("#take-quiz").append(newULfour);
+    
+    // This for loop is for displaying the top five scores
+    for (var i = 0; i < 5; i++) {
+        var scoreToInteger = scoreDisplay[i].Score;
+        var newLI = $("<li>")
+        newLI.text(i + 1 + ". " + scoreDisplay[i].Initials + " " + scoreToInteger + " points");
+        newULfour.append(newLI);
+    }
+
+        var refreshBtn = $("<button>");
+        refreshBtn.text("Back to Start");
+        newULfour.append(refreshBtn);
+
+        $(refreshBtn).on("click", function() {
+            location.reload();
+        });
+
 
             }
         });
 
 }
+
+
+
 
 });
 
