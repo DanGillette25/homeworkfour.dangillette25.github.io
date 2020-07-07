@@ -13,26 +13,29 @@
 <!--Dynamic description of current page-->
     <p id = "description"></p>
 <!--button to start quiz-->
-<ul id="quiz-and-scoreboard-buttons">
-<li>
-    <button id="start-quiz">Start Quiz</button>
-    <button id="display-scores">High Scores</button>
-</li>
-</ul>
+
 <!--The timer and quiz content are hidden until the start quiz button is clicked-->
-    <h4 id="timer" class = "inactive"></h4>
-    <form id="take-quiz" class = "inactive">
     
-        
+    <form id="take-quiz">
 
-
-
+        <ul id="quiz-and-scoreboard-buttons">
+            <li>
+                <button id="start-quiz">Start Quiz</button>
+                <button id="display-scores">High Scores</button>
+            </li>
+            </ul>
+    
     </form>
+
+    <h4 id="timer" class = "inactive"></h4>
+    <h4 id="notification"></h4>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src = "./script.js"></script>
     <script src = "./questions.js"></script>
+
+
     
 
 </body>

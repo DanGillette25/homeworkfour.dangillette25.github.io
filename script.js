@@ -18,36 +18,51 @@ $(document).ready(function(){
 
     // Display Score Button and event listener
    
-        $("#display-scores").on("click", function highScores(){
+        $("#display-scores").on("click", function highScores(event){
 
-        $("#take-quiz").removeClass("inactive");
-        $("#quiz-and-scoreboard-buttons").addClass("inactive");
+            event.preventDefault();
+
+        if (localStorage.getItem('scoreBoard')){
+
+        $("#quiz-and-scoreboard-buttons").html("");
         $("#description").text("These are the top five scores");
 
         // Grab our score array from localStorage, parse it back into an array/object
             // and sort that array based on which score is highest
             var scoreDisplay = JSON.parse(localStorage.getItem('scoreBoard'));
-            scoreDisplay.sort((a,b) => (a.Score > b.Score) ? -1 : 1)
+            scoreDisplay.sort((a,b) => (a.scored > b.scored) ? -1 : 1)
             
-            var newULthree = $("<ul>")
-            $("#take-quiz").append(newULthree);
+            var newULthree = $("#quiz-and-scoreboard-buttons")
 
             // This for loop is for displaying the top five scores
-            for (var i = 0; i < 5; i++) {
-                var scoreToInteger = scoreDisplay[i].Score;
+            for (var i = 0; i < scoreDisplay.length; i++) {
+
+                if (i > 4) {
+                    break;
+                } else {
+
+                var scoreToInteger = scoreDisplay[i].scored;
                 var newLI = $("<li>")
-                newLI.text(i + 1 + ". " + scoreDisplay[i].Initials + " " + scoreToInteger + " points");
+                newLI.text(i + 1 + ". " + scoreDisplay[i].initials + " " + scoreToInteger + " points");
                 newULthree.append(newLI);
+
+                }
+
             }
 
-
-            var refreshBtn = $("<button>");
+            // Add button to go to start page
+            var refreshBtn = $('<button />');
             refreshBtn.text("Back to Start");
             newULthree.append(refreshBtn);
 
             $(refreshBtn).on("click", function() {
                 location.reload();
             })
+        } else {
+
+            $("#notification").text("No Scores to Display Yet")
+
+        }
         
         });
 
@@ -72,6 +87,8 @@ $(document).ready(function(){
         
         },1000);
 
+        $("#notification").text("")
+
         
 
         function startQuiz() {
@@ -83,6 +100,7 @@ $(document).ready(function(){
             $("#take-quiz").removeClass("inactive");
             $("#quiz-and-scoreboard-buttons").addClass("inactive");
             $("#timer").removeClass("inactive");
+            $("#description").text("The quiz is in progress.")
             
             
 
@@ -114,7 +132,7 @@ $(document).ready(function(){
             $(questionThree).prepend('<input type="radio" name="answer" value = "2"/>')
 
             // Append the answer button
-            var submitBtn = $('<input type="submit" value="Submit"/>');
+            var submitBtn = $('<input type="submit" value="Submit" class="quizbtns"/>');
             $(newUL).append(submitBtn);
 
             // When the submit button is clicked...
@@ -145,11 +163,21 @@ $(document).ready(function(){
                 
 
                 if(radioOut == correctAnswer){
-                    alert("Yes!")
+                    $("#notification").text("Correct!")
+                    $("#notification").addClass("correct");
+                    $("#notification").removeClass("wrong");
+                    setTimeout(function(){ 
+                        $("#notification").text("")
+                         }, 750);
                     rightAnswers ++;
                     questionNum++;
                 } else {
-                    alert("No!")
+                    $("#notification").text("Incorrect.")
+                    $("#notification").addClass("wrong");
+                    $("#notification").removeClass("correct");
+                    setTimeout(function(){ 
+                        $("#notification").text("")
+                         }, 750);
                     secondsLeft = secondsLeft - 10;
                     questionNum++;
                 }
@@ -212,21 +240,20 @@ $(document).ready(function(){
         newULtwo.append(scoreDisplay);
     //Textbox and submit button for user's initials
         initialPrompt = $("<li>");
-        initialPrompt.text("Enter Your Initials Here");
+        initialPrompt.text("Enter your initials here");
         newULtwo.append(initialPrompt);
         var initialBox = $('<input type = "text" name="playername">');
         newULtwo.append(initialBox);
     //Submit button
-        var submitScore = $('<input type="submit" value="Submit"/>');
+        var submitScore = $('<input type="submit" value="Submit" class="quizbtns"/>');
         newULtwo.append(submitScore);
 
 
     //When the submit button is clicked...
 
-
-    //////////////////////////////////////////////////////////////////
         $(submitScore).on("click", function displayScores(event) {
             event.preventDefault();
+            $("#notification").text("");
             var storedInitials = document.getElementsByName('playername');
         // We record the initials the user has typed..
             for (i = 0; i < storedInitials.length; i++) {
@@ -239,8 +266,8 @@ $(document).ready(function(){
             var storeScore = [
             
                 {
-                    Initials: initialOut,
-                    Score: score,
+                    initials: initialOut,
+                    scored: score,
 
                 }
             ];
@@ -273,7 +300,7 @@ $(document).ready(function(){
     // Grab our score array from localStorage, parse it back into an array/object
     // and sort that array based on which score is highest
     var scoreDisplay = JSON.parse(localStorage.getItem('scoreBoard'));
-    scoreDisplay.sort((a,b) => (a.Score > b.Score) ? -1 : 1)
+    scoreDisplay.sort((a,b) => (a.scored > b.scored) ? -1 : 1)
 
     $("#description").text("These are the top five scores");
 
@@ -281,16 +308,25 @@ $(document).ready(function(){
     $("#take-quiz").append(newULfour);
     
     // This for loop is for displaying the top five scores
-    for (var i = 0; i < 5; i++) {
-        var scoreToInteger = scoreDisplay[i].Score;
-        var newLI = $("<li>")
-        newLI.text(i + 1 + ". " + scoreDisplay[i].Initials + " " + scoreToInteger + " points");
-        newULfour.append(newLI);
-    }
+    for (var i = 0; i < scoreDisplay.length; i++) {
 
+        if (i > 4) {
+            break;
+        } else {
+
+
+        var scoreToInteger = scoreDisplay[i].scored;
+        var newLI = $("<li>")
+        newLI.text(i + 1 + ". " + scoreDisplay[i].initials + " " + scoreToInteger + " points");
+        newULfour.append(newLI);
+
+        }
+
+    }
+// Add button to go back to start page
         var refreshBtn = $("<button>");
         refreshBtn.text("Back to Start");
-        newULfour.append(refreshBtn);
+        $("#take-quiz").append(refreshBtn);
 
         $(refreshBtn).on("click", function() {
             location.reload();

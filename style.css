@@ -1,3 +1,58 @@
+/*Tags, styling that applies no matter what */
+h1 {
+    color: rgba(250, 250, 250, 0.829);
+    background-color: #007bff;
+    border: 2px solid black;
+    padding: 5px 5px 5px 5px;
+}
+
+li {
+    list-style: none;
+    position: relative;
+}
+
+body {
+    text-align: center;
+    max-width: 91.6666667%;
+    font-family: Impact, Charcoal, sans-serif;
+    border: 3px solid black;
+    padding: 15px 15px 15px 15px;
+}
+
+button {
+    margin-top:10px;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    
+}
+
+button:hover {
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
+}
+
+/*Classes, some used for conditional styling, styling for the in-quiz buttons
+can also be found here */
+.quizbtns {
+
+    margin-top:10px;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+
+}
+
+.quizbtns:hover {
+
+    margin-top:10px;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+
+}
+
 .inactive {
     visibility: hidden;
 }
@@ -6,8 +61,10 @@
     font-weight: bold;
 }
 
-
-li {
-    list-style: none;
+.wrong {
+    color: red;
 }
 
+.correct {
+    color: blue
+}
