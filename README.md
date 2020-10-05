@@ -1,7 +1,48 @@
-This quiz application asks the user a series of five multiple choice questions to test their coding knowledge.  The user is given 60 seconds to complete all five questions.  If a question is answered incorrectly, a time penalty of 10 seconds is deducted from their time remaining.
+# ReadMe for Coding Quiz 
 
-Once the quiz is complete, the score is calculated by multiplying the number of seconds remaining by the number of questions that were answered correctly.
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-The vast majority of the functionality and logic are contained in the questions.js file.  The array storing the questions is stored in the questions.js file.
+  # Table of Contents: 
 
-For code-specific clarification, please refer to the notes posted throughout each code document.
+  [Description](#description)  
+  [License](#license)  
+  [Installation](#installation)  
+  [Usage](#usage)  
+  [License](#license)  
+  [Contribution](#contribution)  
+  [Testing](#testing)  
+  [Questions](#questions)  
+  
+
+
+  ## Description
+    
+  Test your coding knowledge by taking the quiz!
+
+  ## License
+    
+  MIT
+
+  ## Installation
+    
+  This app is deployed in GitHub Pages.  You can access it by clicking this link.  You can also clone the repo and run it locally on your machine.
+
+  ## Usage
+    
+  Click the Start Quiz button to start the quiz.  You will have 60 seconds to complete the quiz.  If you answer a question incorrectly, you will incur a 15 second time penalty.  Click the "High Scores" button to view high scores.
+
+  ## Contribution 
+    
+  Feel free to fork the repo and make whatever changes you'd like
+    
+  ## Testing
+    
+  
+    
+  ## Questions
+
+  For questions you may email me at gillettedan@ymail.com.
+
+  GitHub Profile Link: https://github.com/DanGillette25
+    
+  
