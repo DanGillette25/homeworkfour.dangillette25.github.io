@@ -35,7 +35,7 @@
   
   You will have 60 seconds to complete the quiz.  If you answer a question incorrectly, you will incur a 15 second time penalty.  
   
-  ![Screenshot2](https://raw.githubusercontent.com/DanGillette25/homeworkfour.dangillette25.github.io/master/screenshot2.JPG)
+  ![Screenshot2](https://raw.githubusercontent.com/DanGillette25/homeworkfour.dangillette25.github.io/master/Screenshot2.JPG)
 
   ## Contribution 
     
