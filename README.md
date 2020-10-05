@@ -25,11 +25,17 @@
 
   ## Installation
     
-  This app is deployed in GitHub Pages.  You can access it by clicking this link.  You can also clone the repo and run it locally on your machine.
+  This app is deployed in GitHub Pages.  You can access it by clicking [this](https://dangillette25.github.io/homeworkfour.dangillette25.github.io/?) link.  You can also clone the repo and run it locally on your machine.
 
   ## Usage
     
-  Click the Start Quiz button to start the quiz.  You will have 60 seconds to complete the quiz.  If you answer a question incorrectly, you will incur a 15 second time penalty.  Click the "High Scores" button to view high scores.
+  Click the Start Quiz button to start the quiz.  Click the "High Scores" button to view high scores.
+  
+  [![](https://raw.githubusercontent.com/DanGillette25/homeworkfour.dangillette25.github.io/master/screenshot1.JPG)
+  
+  You will have 60 seconds to complete the quiz.  If you answer a question incorrectly, you will incur a 15 second time penalty.  
+  
+  [![](https://raw.githubusercontent.com/DanGillette25/homeworkfour.dangillette25.github.io/master/screenshot2.JPG)
 
   ## Contribution 
     
